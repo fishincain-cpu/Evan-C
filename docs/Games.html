@@ -1,0 +1,520 @@
+
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+     <nav>
+        <ul>
+            <li><a href="HomeSignedIn.html">Home</a></li>
+            <li>
+                <a href="">Pages</a>
+                <ul>
+                    <li><a href="suckyin.html">Gym Music Sucks</a></li>
+                    <li><a href="basicin.html">Okay sounds</a></li>
+                    <li><a href="goatedin.html">goated music choice</a></li>
+                </ul>
+                <li>
+                    <div id="nav-auth-container">
+    <a href="LoginTest.html" id="logged-out-link" class="nav-link">Log In</a>
+
+    <div id="logged-in-profile" style="display: none; align-items: center; gap: 10px; position: relative;">
+        <div id="profile-icon" style="width: 36px; height: 36px; background-color: #007bff; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; text-transform: uppercase;">
+            U
+        </div>
+        
+        <div id="profile-dropdown" style="display: none; position: absolute; top: 42px; right: 0; background-color: white; border: 1px solid #cccccc; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 150px; z-index: 100; text-align: left; padding: 5px 0;">
+            <a href="HomeSignedIn.html" style="display: block; padding: 10px 15px; color: #333; text-decoration: none; font-size: 14px;">My Account</a>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 5px 0;">
+            <a href="Project 3 Code Test.html" id="logout-btn" style="display: block; padding: 10px 15px; color: #dc3545; text-decoration: none; font-size: 14px;">Log Out</a>
+        </div>
+    </div>
+</div>
+</li>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="Games.html">Games</a></li>
+            <li><a href="accounticon.html">
+                <img src="PagePhotos/account-icon.jpg" height="50px" width="=50px" style="clear: right;">
+               <center> <span>Account</span> </center>
+            </a>
+            <ul>
+                <li><a href="Profile.html">Edit Profile</a></li>
+                <li><a href="Music.html">My Music</a></li>
+                <li><a href="Gym.html">My Gym</a></li>
+                <li><a href="Friends">Friends</a></li>
+            </ul>
+            </li>
+        </ul>
+        <li> <a href="Project 3 Code Test.html">Log Out</a></li>
+    </nav>
+    <title>Barbell Run</title>
+
+    <style>
+        body {
+            background-color: #202020;
+            color: white;
+            text-align: center;
+            font-family: Arial;
+        }
+
+        h1 {
+            color: orange;
+        }
+
+        canvas {
+            background: #333;
+            border: 3px solid orange;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: orange;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>BARBELL RUN</h1>
+    <p>Press SPACE to jump over the candies!</p>
+
+    <canvas id="game" width="600" height="300"></canvas>
+
+    <h2>Score: <span id="score">0</span></h2>
+    <button onclick="restartGame()">Restart Game</button>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+let player = {
+    x: 80,
+    y: 210,
+    width: 70,
+    height: 35,
+    velocity: 0,
+    jumping: false
+};
+
+let obstacles = [];
+let score = 0;
+let gameOver = false;
+let gravity = 1.3;
+
+function drawBarbell() {
+    // Bar
+    ctx.fillStyle = "#cccccc";
+    ctx.fillRect(player.x + 10, player.y + 14, 50, 7);
+
+    // Left weight
+    ctx.fillStyle = "orange";
+    ctx.fillRect(player.x, player.y, 13, 35);
+
+    // Right weight
+    ctx.fillRect(player.x + 57, player.y, 13, 35);
+
+    // Weight details
+    ctx.fillStyle = "#555";
+    ctx.fillRect(player.x + 3, player.y + 5, 7, 25);
+    ctx.fillRect(player.x + 60, player.y + 5, 7, 25);
+}
+
+function createObstacle() {
+    obstacles.push({
+        x: canvas.width,
+        y: 225,
+        width: 25,
+        height: 35
+    });
+}
+
+function drawObstacles() {
+    ctx.fillStyle = "red";
+
+    obstacles.forEach(obstacle => {
+        ctx.fillRect(
+            obstacle.x,
+            obstacle.y,
+            obstacle.width,
+            obstacle.height
+        );
+    });
+}
+
+function jump() {
+    if (!player.jumping && !gameOver) {
+        player.velocity = -13;
+        player.jumping = true;
+    }
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.code === "Space") {
+        event.preventDefault();
+        jump();
+    }
+});
+
+function update() {
+    if (gameOver) return;
+
+    // Gravity
+    player.y += player.velocity;
+    player.velocity += gravity;
+
+    if (player.y >= 210) {
+        player.y = 210;
+        player.velocity = 0;
+        player.jumping = false;
+    }
+
+    // Move obstacles
+    obstacles.forEach(obstacle => {
+        obstacle.x -= 5 + Math.floor(score/50)
+    });
+
+    // Remove obstacles
+    obstacles = obstacles.filter(obstacle => obstacle.x > -30);
+
+    // Collision detection
+    obstacles.forEach(obstacle => {
+        if (
+            player.x + player.width - 8 > obstacle.x &&
+            player.x + 8 < obstacle.x + obstacle.width &&
+            player.y + player.height > obstacle.y
+        ) {
+            gameOver = true;
+        }
+    });
+
+    score++;
+    document.getElementById("score").textContent =
+        Math.floor(score / 5);
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Ground
+    ctx.fillStyle = "#777";
+    ctx.fillRect(0, 245, 600, 5);
+
+    // Gym background
+    ctx.fillStyle = "#555";
+    ctx.fillRect(450, 100, 8, 145);
+    ctx.fillRect(420, 100, 70, 8);
+
+    drawBarbell();
+    drawObstacles();
+
+    if (gameOver) {
+        ctx.fillStyle = "white";
+        ctx.font = "35px Arial";
+        ctx.fillText("GAME OVER!", 190, 130);
+
+        ctx.font = "18px Arial";
+        ctx.fillText("Click Restart to play again", 185, 165);
+    }
+}
+
+let obstacleTimer = 0;
+
+function gameLoop() {
+    update();
+    draw();
+
+    if (!gameOver) {
+        obstacleTimer++;
+
+        if (obstacleTimer > 70) {
+            createObstacle();
+            obstacleTimer = 0;
+        }
+    }
+
+    requestAnimationFrame(gameLoop);
+}
+
+function restartGame() {
+    player.y = 210;
+    player.velocity = 0;
+    player.jumping = false;
+
+    obstacles = [];
+    score = 0;
+    gameOver = false;
+    obstacleTimer = 0;
+}
+
+gameLoop();
+
+</script>
+
+<br>
+<br>
+<br>
+
+<!-- FLAPPY KETTLEBELL GAME -->
+
+<hr style="margin-top: 50px;">
+
+<h1>FLAPPY KETTLEBELL</h1>
+<p>Press SPACE or click the game to fly. Avoid the Twizzlers</p>
+
+<canvas id="flappyGame" width="600" height="400"
+style="background:#222; border:3px solid orange; border-radius:10px;">
+</canvas>
+
+<h2>Score: <span id="flappyScore">0</span></h2>
+<button onclick="restartFlappy()">Restart Flappy Kettlebell</button>
+
+<script>
+
+const fCanvas = document.getElementById("flappyGame");
+const fCtx = fCanvas.getContext("2d");
+
+let kettle = {
+    x: 100,
+    y: 180,
+    velocity: 0
+};
+
+let pipes = [];
+let flappyScore = 0;
+let flappyOver = false;
+let pipeTimer = 0;
+
+function drawKettlebell() {
+    // Handle
+    fCtx.strokeStyle = "orange";
+    fCtx.lineWidth = 8;
+    fCtx.beginPath();
+    fCtx.arc(kettle.x, kettle.y - 12, 13, Math.PI, 0);
+    fCtx.stroke();
+
+    // Body
+    fCtx.fillStyle = "orange";
+    fCtx.beginPath();
+    fCtx.arc(kettle.x, kettle.y + 5, 23, 0, Math.PI * 2);
+    fCtx.fill();
+
+    // Eyes
+    fCtx.fillStyle = "white";
+    fCtx.beginPath();
+    fCtx.arc(kettle.x - 8, kettle.y + 2, 5, 0, Math.PI * 2);
+    fCtx.arc(kettle.x + 8, kettle.y + 2, 5, 0, Math.PI * 2);
+    fCtx.fill();
+
+    // Pupils
+    fCtx.fillStyle = "black";
+    fCtx.beginPath();
+    fCtx.arc(kettle.x - 8, kettle.y + 2, 2, 0, Math.PI * 2);
+    fCtx.arc(kettle.x + 8, kettle.y + 2, 2, 0, Math.PI * 2);
+    fCtx.fill();
+
+    // Smile
+    fCtx.strokeStyle = "white";
+    fCtx.lineWidth = 5;
+    fCtx.beginPath();
+    fCtx.arc(kettle.x, kettle.y - 50, 75, Math.PI, 0);
+    fCtx.stroke();
+}
+
+function makePipes() {
+    let gap = 140;
+    let topHeight = Math.random() * 140 + 20;
+
+    pipes.push({
+        x: 600,
+        top: topHeight,
+        bottom: topHeight + gap,
+        scored: false
+    });
+}
+
+function drawPipes() {
+    fCtx.fillStyle = "red";
+
+    pipes.forEach(pipe => {
+        // Top obstacle
+        fCtx.fillRect(pipe.x, 0, 45, pipe.top);
+
+        // Bottom obstacle
+        fCtx.fillRect(
+            pipe.x,
+            pipe.bottom,
+            45,
+            400 - pipe.bottom
+        );
+    });
+}
+
+function flappyJump() {
+    if (!flappyOver) {
+        kettle.velocity = -6;
+    }
+}
+
+fCanvas.addEventListener("click", flappyJump);
+
+document.addEventListener("keydown", function(event) {
+    if (event.code === "Space") {
+        event.preventDefault();
+        flappyJump();
+    }
+});
+
+function updateFlappy() {
+    if (flappyOver) return;
+
+    // Gravity
+    kettle.velocity += 0.50;
+    kettle.y += kettle.velocity;
+
+    // Move pipes
+    pipes.forEach(pipe => {
+        pipe.x -= 3;
+
+        // Score
+        if (!pipe.scored && pipe.x + 45 < kettle.x) {
+            flappyScore++;
+            pipe.scored = true;
+            document.getElementById("flappyScore").textContent =
+                flappyScore;
+        }
+
+        // Collision
+        if (
+            kettle.x + 20 > pipe.x &&
+            kettle.x - 20 < pipe.x + 45 &&
+            (kettle.y - 20 < pipe.top ||
+             kettle.y + 20 > pipe.bottom)
+        ) {
+            flappyOver = true;
+        }
+    });
+
+    pipes = pipes.filter(pipe => pipe.x > -50);
+
+    // Screen boundaries
+    if (kettle.y < 0 || kettle.y > 400) {
+        flappyOver = true;
+    }
+
+    // Spawn pipes
+    pipeTimer++;
+
+    if (pipeTimer > 90) {
+        makePipes();
+        pipeTimer = 0;
+    }
+}
+
+function drawFlappy() {
+    fCtx.clearRect(0, 0, 600, 400);
+
+    drawPipes();
+    drawKettlebell();
+
+    if (flappyOver) {
+        fCtx.fillStyle = "white";
+        fCtx.font = "35px Arial";
+        fCtx.fillText("GAME OVER!", 185, 190);
+
+        fCtx.font = "18px Arial";
+        fCtx.fillText("Click Restart to try again", 190, 225);
+    }
+}
+
+function flappyLoop() {
+    updateFlappy();
+    drawFlappy();
+    requestAnimationFrame(flappyLoop);
+}
+
+function restartFlappy() {
+    kettle.y = 180;
+    kettle.velocity = 0;
+    pipes = [];
+    flappyScore = 0;
+    pipeTimer = 0;
+    flappyOver = false;
+
+    document.getElementById("flappyScore").textContent = 0;
+}
+
+function drawKettlebell() {
+
+    // Animate wings
+    let flap = Math.sin(Date.now() / 90) * 12;
+
+    // Left wing
+    fCtx.save();
+    fCtx.translate(kettle.x - 18, kettle.y + 3);
+    fCtx.rotate(-flap * Math.PI / 180);
+
+    fCtx.fillStyle = "#ffcc66";
+    fCtx.beginPath();
+    fCtx.ellipse(-15, 0, 19, 9, -0.3, 0, Math.PI * 2);
+    fCtx.fill();
+    fCtx.restore();
+
+    // Right wing
+    fCtx.save();
+    fCtx.translate(kettle.x + 18, kettle.y + 3);
+    fCtx.rotate(flap * Math.PI / 180);
+
+    fCtx.fillStyle = "#ffcc66";
+    fCtx.beginPath();
+    fCtx.ellipse(15, 0, 19, 9, 0.3, 0, Math.PI * 2);
+    fCtx.fill();
+    fCtx.restore();
+
+    // Handle
+    fCtx.strokeStyle = "orange";
+    fCtx.lineWidth = 8;
+    fCtx.beginPath();
+    fCtx.arc(kettle.x, kettle.y - 12, 13, Math.PI, 0);
+    fCtx.stroke();
+
+    // Body
+    fCtx.fillStyle = "orange";
+    fCtx.beginPath();
+    fCtx.arc(kettle.x, kettle.y + 5, 23, 0, Math.PI * 2);
+    fCtx.fill();
+
+    // Eyes
+    fCtx.fillStyle = "white";
+    fCtx.beginPath();
+    fCtx.arc(kettle.x - 8, kettle.y + 2, 5, 0, Math.PI * 2);
+    fCtx.arc(kettle.x + 8, kettle.y + 2, 5, 0, Math.PI * 2);
+    fCtx.fill();
+
+    // Pupils
+    fCtx.fillStyle = "black";
+    fCtx.beginPath();
+    fCtx.arc(kettle.x - 8, kettle.y + 2, 2, 0, Math.PI * 2);
+    fCtx.arc(kettle.x + 8, kettle.y + 2, 2, 0, Math.PI * 2);
+    fCtx.fill();
+
+    // Smile
+    fCtx.strokeStyle = "white";
+    fCtx.lineWidth = 3;
+    fCtx.beginPath();
+    fCtx.arc(kettle.x, kettle.y + 15 , 5, Math.PI, 0, true);
+    fCtx.stroke();
+}
+
+
+flappyLoop();
+
+</script>
+
+</body>
+</html>
