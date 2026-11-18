@@ -1,31 +1,117 @@
+
 <!DOCTYPE html>
 <html>
-    <head>
-         <link rel="stylesheet" href="style.css">
-                  <title>Gym Music Sucks</title>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Goated Music Choices</title>
 
-    </head>
-    
+    <style>
+        .music-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #eeeeee;
+            color: black;
+            border-radius: 12px;
+        }
 
-        <article>
-                <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li>
-                <a href="">Services ▾</a>
-                <ul>
-                    <li><a href="sucky.html">Gym Music Sucks</a></li>
-                    <li><a href="basic.html">Okay sounds</a></li>
-                    <li><a href="goated.html">goated music choice</a></li>
-                </ul>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
-    <body>
+        .song {
+            background: white;
+            padding: 15px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
 
-            
-        </article>
-    </body>
-    <footer> &copy; Evan Cain All Rights Reserved</footer>
+        select {
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="Project 3 Code Test.html">Home</a></li>
+        <li>
+            <a href="">Services ▾</a>
+            <ul>
+                <li><a href="sucky.html">Gym Music Sucks</a></li>
+                <li><a href="basic.html">Okay Sounds</a></li>
+                <li><a href="goated.html">Goated Music Choice</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="music-container">
+
+    <h1>THE GOATED PLAYLIST</h1>
+
+    <p>Only the best gym music makes this list. Check out what other gym members are voting for!</p>
+
+    <h2>Choose Your Gym</h2>
+
+    <select id="gym" onchange="showSongs()">
+        <option value="MSU Gym">MSU Gym</option>
+        <option value="Planet Fitness">Planet Fitness</option>
+        <option value="Anytime Fitness">Anytime Fitness</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <h2>Top Gym Songs</h2>
+
+    <div id="songList"></div>
+
+</div>
+
+<script>
+    function showSongs() {
+        let gym = document.getElementById("gym").value;
+
+        let songs = JSON.parse(localStorage.getItem("gymSongs")) || [];
+
+        let filtered = songs.filter(song => song.gym === gym);
+
+        filtered.sort((a, b) => b.votes - a.votes);
+
+        let list = document.getElementById("songList");
+        list.innerHTML = "";
+
+        if (filtered.length === 0) {
+            list.textContent = "No songs have been submitted for this gym yet. Visit Okay Sounds to add some!";
+            return;
+        }
+
+        filtered.forEach((song, index) => {
+            let div = document.createElement("div");
+            div.className = "song";
+
+            let heading = document.createElement("h3");
+            heading.textContent = (index + 1) + ". " + song.name + " - " + song.artist;
+
+            let details = document.createElement("p");
+            details.textContent = "Genre: " + song.genre;
+
+            let votes = document.createElement("p");
+            votes.textContent = "👍 " + song.votes + " votes";
+
+            div.appendChild(heading);
+            div.appendChild(details);
+            div.appendChild(votes);
+
+            list.appendChild(div);
+        });
+    }
+
+    showSongs();
+</script>
+
+<footer>
+    &copy; Evan Cain All Rights Reserved
+</footer>
+
+</body>
 </html>

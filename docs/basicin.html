@@ -1,29 +1,60 @@
+
 <!DOCTYPE html>
-
 <html>
-    <head>
-         <link rel="stylesheet" href="style.css">
-                  <title>Gym Music Sucks</title>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Okay Sounds</title>
 
-    </head>
-    
+    <style>
+        .music-container {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #eeeeee;
+            color: black;
+            border-radius: 12px;
+        }
 
-        <article>
-                <nav>
-        <ul>
-            <li><a href="HomeSignedIn.html">Home</a></li>
-            <li>
-                <a href="">Services ▾</a>
-                <ul>
-                    <li><a href="suckyin.html">Gym Music Sucks</a></li>
-                    <li><a href="basicin.html">Okay sounds</a></li>
-                    <li><a href="goatedin.html">goated music choice</a></li>
-                </ul>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-          <div id="nav-auth-container">
-    <a href="LoginTest.html" id="logged-out-link" class="nav-link">Log In</a>
+        input, select {
+            width: 95%;
+            padding: 10px;
+            margin: 8px 0 15px;
+        }
+
+        button {
+            padding: 10px 18px;
+            background: #222;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .song {
+            background: white;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="Project 3 Code Test.html">Home</a></li>
+        <li>
+            <a href="">Services ▾</a>
+            <ul>
+                <li><a href="sucky.html">Rate Your Gym Music</a></li>
+                <li><a href="basic.html">Okay Sounds</a></li>
+                <li><a href="goated.html">Goated Music Choice</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div id="nav-auth-container">
 
     <div id="logged-in-profile" style="display: none; align-items: center; gap: 10px; position: relative;">
         <div id="profile-icon" style="width: 36px; height: 36px; background-color: #007bff; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; text-transform: uppercase;">
@@ -53,12 +84,121 @@
             </li>
         </ul>
                 <li> <a href="Project 3 Code Test.html">Log Out</a></li>
+</nav>
 
-    </nav>
-    <body>
+<div class="music-container">
 
-            <center><p>Start.</p></center>
-        </article>
-    </body>
-    <footer> &copy; Evan Cain All Rights Reserved</footer>
+    <h1>Okay Sounds</h1>
+
+    <p>Think your gym needs better music? Submit your recommendations below!</p>
+
+    <h2>Choose Your Gym</h2>
+
+    <select id="gym">
+        <option value="MSU Gym">MSU Gym</option>
+        <option value="Planet Fitness">Planet Fitness</option>
+        <option value="Anytime Fitness">Anytime Fitness</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <h2>Submit a Song</h2>
+
+    <input type="text" id="songName" placeholder="Song Name">
+
+    <input type="text" id="artist" placeholder="Artist">
+
+    <select id="genre">
+        <option>Metalcore</option>
+        <option>Rock</option>
+        <option>Rap</option>
+        <option>Electronic</option>
+        <option>Other</option>
+    </select>
+
+    <button onclick="addSong()">Submit Song</button>
+
+    <h2>Community Recommendations</h2>
+
+    <div id="songList"></div>
+
+</div>
+
+<script>
+    let songs = JSON.parse(localStorage.getItem("gymSongs")) || [];
+
+    function addSong() {
+        let name = document.getElementById("songName").value.trim();
+        let artist = document.getElementById("artist").value.trim();
+        let genre = document.getElementById("genre").value;
+        let gym = document.getElementById("gym").value;
+
+        if (name === "" || artist === "") {
+            alert("Please enter a song and artist!");
+            return;
+        }
+
+        songs.push({
+            name: name,
+            artist: artist,
+            genre: genre,
+            gym: gym,
+            votes: 0
+        });
+
+        localStorage.setItem("gymSongs", JSON.stringify(songs));
+
+        document.getElementById("songName").value = "";
+        document.getElementById("artist").value = "";
+
+        displaySongs();
+    }
+
+    function vote(index) {
+        songs[index].votes++;
+
+        localStorage.setItem("gymSongs", JSON.stringify(songs));
+
+        displaySongs();
+    }
+
+    function displaySongs() {
+        let list = document.getElementById("songList");
+        list.innerHTML = "";
+
+        songs.forEach((song, index) => {
+            let div = document.createElement("div");
+            div.className = "song";
+
+            let heading = document.createElement("h3");
+            heading.textContent = song.name + " - " + song.artist;
+
+            let details = document.createElement("p");
+            details.textContent = song.gym + " | " + song.genre;
+
+            let votes = document.createElement("p");
+            votes.textContent = "Votes: " + song.votes;
+
+            let button = document.createElement("button");
+            button.textContent = "👍 Vote";
+            button.onclick = function() {
+                vote(index);
+            };
+
+            div.appendChild(heading);
+            div.appendChild(details);
+            div.appendChild(votes);
+            div.appendChild(button);
+
+            list.appendChild(div);
+        });
+    }
+
+    displaySongs();
+</script>
+
+<footer>
+    &copy; Evan Cain All Rights Reserved
+</footer>
+
+</body>
 </html>

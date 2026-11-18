@@ -1,29 +1,82 @@
+
 <!DOCTYPE html>
-
 <html>
-    <head>
-         <link rel="stylesheet" href="style.css">
-                  <title>Gym Music Sucks</title>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Rate Your Gym Music</title>
 
-    </head>
-    
+    <style>
+        .music-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #eeeeee;
+            color: black;
+            border-radius: 12px;
+        }
 
-        <article>
-                <nav>
-        <ul>
-            <li><a href="HomeSignedIn.html">Home</a></li>
-            <li>
-                <a href="">Services ▾</a>
-                <ul>
-                    <li><a href="suckyin.html">Gym Music Sucks</a></li>
-                    <li><a href="basicin.html">Okay sounds</a></li>
-                    <li><a href="goatedin.html">goated music choice</a></li>
-                </ul>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-          <div id="nav-auth-container">
-    <a href="LoginTest.html" id="logged-out-link" class="nav-link">Log In</a>
+        input, select, textarea {
+            width: 95%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 11px 20px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        .review {
+            background: white;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #555;
+        }
+
+        .rating {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            border-bottom: 2px solid #555;
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="Project 3 Code Test.html">Home</a></li>
+        <li>
+            <a href="">Services ▾</a>
+            <ul>
+                <li><a href="sucky.html">Rate Your Gym Music</a></li>
+                <li><a href="basic.html">Okay Sounds</a></li>
+                <li><a href="goated.html">Goated Music Choice</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div id="nav-auth-container">
 
     <div id="logged-in-profile" style="display: none; align-items: center; gap: 10px; position: relative;">
         <div id="profile-icon" style="width: 36px; height: 36px; background-color: #007bff; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; text-transform: uppercase;">
@@ -53,36 +106,165 @@
             </li>
         </ul>
                 <li> <a href="Project 3 Code Test.html">Log Out</a></li>
+</nav>
 
-    </nav>
-    <body>
-        <div class="box-container">
-            <div class="homepage">
-        <a href="sucky.html">
-        <img src="./PagePhotos/PlanetHell.jpg" alt="IMG" >
-        </a>
-        <div class="homepage-text">
-            <h2>Sucky Music</h2>
-            <p>Commercial gyms that offer cheap monthly subscriptions often lack good equipment,
-             but they also lack a baseline of what they consider quality music. 
-             When I am in the gym, I am looking to get hyped to workout, not to fall asleep.
-             Gyms such as Planet Fitness can play "noises" like the one you can hear above.</p>
-        </div>
-    </div>
-     <div class="rightbox">
-        <a href="sucky.html">
-        <img src="./PagePhotos/PlanetHell.jpg" alt="IMG" >
-        </a>
-        <div class="homepage-text">
-            <h2>Sucky Music</h2>
-            <p>Commercial gyms that offer cheap monthly subscriptions often lack good equipment,
-             but they also lack a baseline of what they consider quality music. 
-             When I am in the gym, I am looking to get hyped to workout, not to fall asleep.
-             Gyms such as Planet Fitness can play "noises" like the one you can hear above.</p>
-        </div>
-    </div>
+<div class="music-container">
+
+    <h1>Gym Music Sucks?</h1>
+
+    <p>
+        Ever walked into a gym and wondered who picked the playlist?
+        Now you can do something about it!
+        Rate your gym's current music and tell us what you think
+        should be playing instead.
+    </p>
+
+    <h2 class="section-title">Rate Your Gym</h2>
+
+    <label>Select Your Gym:</label>
+
+    <select id="gym" onchange="displayReviews()">
+        <option value="MSU Gym">MSU Gym</option>
+        <option value="Planet Fitness">Planet Fitness</option>
+        <option value="Anytime Fitness">Anytime Fitness</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <h2 class="section-title">How Good Is The Music?</h2>
+
+    <label>Give the current playlist a rating:</label>
+
+    <select id="rating">
+        <option value="1">1 - Absolutely Terrible</option>
+        <option value="2">2 - Needs Improvement</option>
+        <option value="3">3 - It's Okay</option>
+        <option value="4">4 - Pretty Good</option>
+        <option value="5">5 - Absolutely Goated</option>
+    </select>
+
+    <label>What do you think about the music?</label>
+
+    <textarea id="comment"
+        placeholder="Tell us what you think about your gym's playlist..."></textarea>
+
+    <label>What would you rather hear?</label>
+
+    <select id="suggestion">
+        <option>Metalcore</option>
+        <option>Rock</option>
+        <option>Rap</option>
+        <option>Electronic</option>
+        <option>Pop</option>
+        <option>A mix of everything</option>
+    </select>
+
+    <button onclick="submitReview()">Submit Rating</button>
+
+    <h2 class="section-title">Gym Music Ratings</h2>
+
+    <div id="average"></div>
+
+    <div id="reviewList"></div>
+
+    <p>
+        Want to help create a better playlist?
+        <a href="basic.html">Submit your music recommendations here!</a>
+    </p>
+
 </div>
-        </article>
-    </body>
-    <footer> &copy; Evan Cain All Rights Reserved</footer>
+
+<script>
+
+    let reviews = JSON.parse(localStorage.getItem("gymReviews")) || [];
+
+    function submitReview() {
+
+        let gym = document.getElementById("gym").value;
+        let rating = Number(document.getElementById("rating").value);
+        let comment = document.getElementById("comment").value.trim();
+        let suggestion = document.getElementById("suggestion").value;
+
+        if (comment === "") {
+            alert("Please leave a comment about your gym's music!");
+            return;
+        }
+
+        reviews.push({
+            gym: gym,
+            rating: rating,
+            comment: comment,
+            suggestion: suggestion
+        });
+
+        localStorage.setItem("gymReviews", JSON.stringify(reviews));
+
+        document.getElementById("comment").value = "";
+
+        alert("Your rating has been submitted!");
+
+        displayReviews();
+    }
+
+    function displayReviews() {
+
+        let gym = document.getElementById("gym").value;
+
+        let filtered = reviews.filter(review => review.gym === gym);
+
+        let list = document.getElementById("reviewList");
+        let average = document.getElementById("average");
+
+        list.innerHTML = "";
+
+        if (filtered.length === 0) {
+            average.textContent = "No ratings yet. Be the first!";
+            return;
+        }
+
+        let total = 0;
+
+        filtered.forEach(review => {
+            total += review.rating;
+        });
+
+        let avg = (total / filtered.length).toFixed(1);
+
+        average.innerHTML =
+            "<h3>Average Rating: " + avg + " / 5 ⭐</h3>" +
+            "<p>Based on " + filtered.length + " reviews.</p>";
+
+        filtered.forEach(review => {
+
+            let div = document.createElement("div");
+            div.className = "review";
+
+            let rating = document.createElement("p");
+            rating.className = "rating";
+            rating.textContent = "⭐ " + review.rating + " / 5";
+
+            let comment = document.createElement("p");
+            comment.textContent = review.comment;
+
+            let suggestion = document.createElement("p");
+            suggestion.textContent =
+                "Preferred genre: " + review.suggestion;
+
+            div.appendChild(rating);
+            div.appendChild(comment);
+            div.appendChild(suggestion);
+
+            list.appendChild(div);
+
+        });
+    }
+
+    displayReviews();
+
+</script>
+
+<footer>
+    &copy; Evan Cain All Rights Reserved
+</footer>
+
+</body>
 </html>

@@ -1,89 +1,316 @@
+
 <!DOCTYPE html>
-
 <html>
-    <head>
-         <link rel="stylesheet" href="style.css">
-         <title>Gym Music Sucks</title>
-    </head>
-    
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Gym Music Sucks - Home</title>
 
-        <article>
-                <nav>
-        <ul>
-            <li><a href="Project 3 Code Test.html">Home</a></li>
-            <li>
-                <a href="">Pages</a>
-                <ul>
-                    <li><a href="sucky.html">Gym Music Sucks</a></li>
-                    <li><a href="basic.html">Okay sounds</a></li>
-                    <li><a href="goated.html">goated music choice</a></li>
-                </ul>
-                <li>
-                    <div id="nav-auth-container">
-    <a href="LoginTest.html" id="logged-out-link" class="nav-link">Log In</a>
+    <style>
+        .hero {
+            text-align: center;
+            padding: 65px 20px;
+            background: #222;
+            color: white;
+        }
 
-    <div id="logged-in-profile" style="display: none; align-items: center; gap: 10px; position: relative;">
-        <div id="profile-icon" style="width: 36px; height: 36px; background-color: #007bff; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; cursor: pointer; text-transform: uppercase;">
-            U
-        </div>
-        
-        <div id="profile-dropdown" style="display: none; position: absolute; top: 42px; right: 0; background-color: white; border: 1px solid #cccccc; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 150px; z-index: 100; text-align: left; padding: 5px 0;">
-            <a href="HomeSignedIn.html" style="display: block; padding: 10px 15px; color: #333; text-decoration: none; font-size: 14px;">My Account</a>
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 5px 0;">
-            <a href="Project 3 Code Test.html" id="logout-btn" style="display: block; padding: 10px 15px; color: #dc3545; text-decoration: none; font-size: 14px;">Log Out</a>
-        </div>
-    </div>
+        .hero h1 {
+            font-size: 42px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        .hero button {
+            margin-top: 25px;
+            padding: 14px 25px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .info-box {
+            background: #eeeeee;
+            color: black;
+            padding: 22px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .page-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .page-card {
+            background: #eeeeee;
+            color: black;
+            padding: 22px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .page-card img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .page-card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 18px;
+            background: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .page-card a:hover {
+            background: #555;
+        }
+
+        .content h2 {
+            border-bottom: 2px solid #555;
+            padding-bottom: 8px;
+        }
+
+        .section-image {
+            display: block;
+            width: 100%;
+            max-width: 650px;
+            height: 300px;
+            object-fit: cover;
+            margin: 20px auto;
+            border-radius: 12px;
+        }
+
+        .banner-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+
+        <li>
+            <a href="">Pages ▾</a>
+            <ul>
+                <li><a href="sucky.html">Gym Music Sucks</a></li>
+                <li><a href="basic.html">Okay Sounds</a></li>
+                <li><a href="goated.html">Goated Music Choice</a></li>
+            </ul>
+        </li>
+
+        <li><a href="LoginTest.html">Log In</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Games.html">Games</a></li>
+    </ul>
+</nav>
+
+
+<img class="banner-image"
+     src="PagePhotos/flesh.webp"
+     alt="Gym interior">
+
+<div class="hero">
+
+    <h1>GYM MUSIC SUCKS</h1>
+
+    <p>
+        Tired of listening to the same boring songs
+        every time you walk into the gym?
+        It's time to change the playlist.
+        Give gym members a voice in the music
+        they hear while working out!
+    </p>
+
+    <button onclick="location.href='basic.html'">
+        Recommend Music
+    </button>
+
 </div>
-</li>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="Games.html">Games</a></li>
-        </ul>
-    </nav>
-    <body>
-        <h1>Why Gym Music Sucks</h1>
-        <center><p>Evan Cain</p></center>
-        
-<div class="box-container">
 
-    
-    <div class="homepage">
-        <a href="sucky.html">
-        <img src="./PagePhotos/PlanetHell.jpg" alt="IMG" >
-        </a>
-        <div class="homepage-text">
-            <h2>Sucky Music</h2>
-            <p>Gym music can be annoying when it is too loud or repetitive.</p>
-        </div>
+<div class="content">
+
+    <!-- ABOUT -->
+
+    <h2>What Is This Website?</h2>
+
+    <div class="info-box">
+
+        <p>
+            Gym Music Sucks is a website designed to give
+            gym members more control over the music played
+            in their workout environment.
+        </p>
+
+        <p>
+            Everyone has different musical preferences.
+            Some people enjoy metalcore and rock, while
+            others prefer rap or electronic music.
+            However, gym members usually have little say
+            in what plays through the speakers.
+        </p>
+
+        <p>
+            This website gives people an opportunity to
+            recommend songs, vote for their favorites,
+            and share their opinions about the current
+            gym playlist.
+        </p>
+
     </div>
 
-    
-    <div class="middlebox">
-        <a  href="basic.html">
-        <img src="./PagePhotos/Imagine.jpg" alt="IMG">
-        </a>
-        <div class="homepage-text">
-            <h2>Okay Sounds</h2>
-            <p>Some music is fine for working out, but it could be better.</p>
-        </div>
+    <!-- WHY MUSIC MATTERS -->
+
+    <h2>Why Does Gym Music Matter?</h2>
+
+    <img class="section-image"
+         src="PagePhotos/woman.jpg"
+         alt="Person working out while listening to music">
+
+    <div class="info-box">
+
+        <p>
+            Music is an important part of many people's
+            workout experience. The right playlist can
+            make exercising more enjoyable and help
+            create a motivating atmosphere.
+        </p>
+
+        <p>
+            Unfortunately, not everyone enjoys the music
+            selected by their gym. Repetitive playlists
+            and songs that don't match people's preferences
+            can make the experience less enjoyable.
+        </p>
+
+        <p>
+            Giving members a chance to recommend music
+            could help gyms create playlists that better
+            represent their communities.
+        </p>
+
     </div>
 
-   
-    <div class="rightbox">
-        <a  href="goated.html">
-        <img src="./PagePhotos/Men.webp" alt="IMG">
-        </a>
-        <div class="homepage-text">
-            <h2>Goated Music</h2>
-            <p>The right music can make workouts more enjoyable and motivating.</p>
+    <!-- HOW IT WORKS -->
+
+    <h2>How Does It Work?</h2>
+
+    <div class="page-links">
+
+        <div class="page-card">
+
+            <img src="PagePhotos/guy.jpg"
+                 alt="Gym member reviewing music">
+
+            <h3>1. Rate the Music</h3>
+
+            <p>
+                Tell us what you think about your gym's
+                current music. Leave a rating and explain
+                what you would rather hear.
+            </p>
+
+            <a href="sucky.html">Rate Your Gym</a>
+
         </div>
+
+        <div class="page-card">
+
+            <img src="PagePhotos/dumb.jpg"
+                 alt="Headphones and music">
+
+            <h3>2. Recommend Songs</h3>
+
+            <p>
+                Submit your favorite songs and vote
+                for recommendations from other gym
+                members.
+            </p>
+
+            <a href="basic.html">Okay Sounds</a>
+
+        </div>
+
+        <div class="page-card">
+
+            <img src="PagePhotos/crowd.jpg"
+                 alt="Rock concert crowd">
+
+            <h3>3. Find the Best Music</h3>
+
+            <p>
+                Check out the most popular songs
+                recommended by other members and
+                discover the goated gym playlist.
+            </p>
+
+            <a href="goated.html">See the Goated Music</a>
+
+        </div>
+
+    </div>
+
+    <!-- OUR GOAL -->
+
+    <h2>Our Goal</h2>
+
+    <img class="section-image"
+         src="PagePhotos/pow.jpg"
+         alt="Athlete lifting weights">
+
+    <div class="info-box">
+
+        <p>
+            The goal of this project is simple:
+            make gym music better by giving the people
+            listening to it a voice.
+        </p>
+
+        <p>
+            Instead of allowing one person to decide
+            what everyone hears, gym members can work
+            together to recommend and vote on music.
+        </p>
+
+        <p>
+            Whether you enjoy metalcore, rock, rap,
+            electronic music, or something completely
+            different, your recommendations matter.
+        </p>
+
+        <h3>Better Music. Better Workouts. Better Gyms.</h3>
+
     </div>
 
 </div>
 
+<footer>
+    &copy; Evan Cain All Rights Reserved
+</footer>
 
-            
-        </article>
-    </body>
-    <footer> &copy; Evan Cain All Rights Reserved</footer>
+</body>
 </html>
